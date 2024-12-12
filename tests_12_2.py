@@ -1,35 +1,50 @@
-import runner_and_tournament as rnt
 import unittest
+import inspect
+from runner_and_tournament import Runner, Tournament
+
 
 class TournamentTest(unittest.TestCase):
-
     @classmethod
     def setUpClass(cls):
         cls.all_results = {}
 
     def setUp(self):
-        vs = {'Усэйн': 10, 'Андрей': 9, 'Ник': 3}
-        self.runners = {n: rnt.Runner(name=n, speed=v) for n, v in vs.items()}
+        self.usain = Runner('Усэйн', 10)
+        self.andrey = Runner('Андрей', 9)
+        self.nik = Runner('Ник', 3)
 
     @classmethod
     def tearDownClass(cls):
-        for k, v in cls.all_results.items():
-            print(f'{k}: {v}')
+        print()
+        for test in cls.all_results:
+            print()
+            print(f'{test}:')
+            print({k: str(v) for k, v in cls.all_results[test].items()})
 
-    def test_tournament(self):
-        tour = rnt.Tournament(90, self.runners['Усэйн'], self.runners['Ник'])
-        all_results = tour.start()
-        self.assertTrue(all_results[2], self.runners['Ник'])
+    def test_usain_nik(self):
+        tour = Tournament(90, self.usain, self.nik)
+        results = tour.start()
+        self.all_results[inspect.stack()[0][3]] = results
+        self.assertTrue('Ник' == results[len(results)].name)
 
-    def test_tournament_2(self):
-        tour = rnt.Tournament(90, self.runners['Андрей'], self.runners['Ник'])
-        all_results = tour.start()
-        self.assertTrue(all_results[2], self.runners['Ник'])
+    def test_andrey_nik(self):
+        tour = Tournament(90, self.andrey, self.nik)
+        results = tour.start()
+        self.all_results[inspect.stack()[0][3]] = results
+        self.assertTrue('Ник' == results[len(results)].name)
 
-    def test_tournament_3(self):
-        tour = rnt.Tournament(90, self.runners['Усэйн'], self.runners['Андрей'], self.runners['Ник'])
-        all_results = tour.start()
-        self.assertTrue(all_results[3], self.runners['Ник'])
+    def test_usain_andrey_nik(self):
+        tour = Tournament(90, self.usain, self.andrey, self.nik)
+        results = tour.start()
+        self.all_results[inspect.stack()[0][3]] = results
+        self.assertTrue('Ник' == results[len(results)].name)
+
+    def test_nik_andrey_usain_8(self):
+        tour = Tournament(8, self.nik, self.andrey, self.usain)
+        results = tour.start()
+        self.all_results[inspect.stack()[0][3]] = results
+        self.assertTrue('Ник' == results[len(results)].name)
+
 
 if __name__ == '__main__':
     unittest.main()
