@@ -1,6 +1,6 @@
 from dataclasses import dataclass
-import runner
-import runner_and_tournament as run_turn
+import kod_12_2
+import kod_12_1
 import unittest
 
 
@@ -8,7 +8,7 @@ class RunnerTest(unittest.TestCase):
     is_frozen = False
     @unittest.skipUnless(is_frozen == False,'Тесты в этом кейсе заморожены')
     def test_walk(self):
-        hum1 = runner.Runner('Степаныч')
+        hum1 = kod_12_1.Runner('Степаныч')
         for i in range(10):
             hum1.walk()
 
@@ -16,7 +16,7 @@ class RunnerTest(unittest.TestCase):
 
     @unittest.skipUnless(is_frozen == False, 'Тесты в этом кейсе заморожены')
     def test_run(self):
-        hum1 = runner.Runner('Степаныч')
+        hum1 = kod_12_1.Runner('Степаныч')
         for i in range(10):
             hum1.run()
 
@@ -24,8 +24,8 @@ class RunnerTest(unittest.TestCase):
 
     @unittest.skipUnless(is_frozen == False, 'Тесты в этом кейсе заморожены')
     def test_challenge(self):
-        hum1 = runner.Runner('Степаныч')
-        hum2 = runner.Runner('Петрович')
+        hum1 = kod_12_1.Runner('Степаныч')
+        hum2 = kod_12_1.Runner('Петрович')
         for i in range(10):
             hum1.walk()
             hum2.run()
