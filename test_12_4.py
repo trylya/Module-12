@@ -31,3 +31,4 @@ if __name__ == '__main__':
                         filename='runner_tests.log', encoding='utf-8',
                         format='%(asctime)s | %(levelname)s | %(message)s')
     unittest.main()
+
